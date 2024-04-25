@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>게시글 목록</title>
+<style>
+	
+	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
+	
+	* {
+	letter-spacing:-0.5px;
+	font-family: 'Noto Sans KR', sans-serif;
+
+	}
+	
+	.main{
+		text-align:center;
+	}
+	
+	table,th,tr,td {
+		margin:auto;
+		border:1px solid gray;
+		border-collapse:collapse;
+		width:700px;
+		padding:15px;
+	}
+	
+</style>
+</head>
+<body>
+<div class="main">
+	<h3>게시글 목록</h3>
+	<table>
+		<tr><th>no</th><th>제목</th></tr>
+		<tr th:each="b:${blist}">
+			<td>[[${b.bnum}]]</td>
+			<td><a th:href="@{'/jpab/detail/'+${b.bnum}}">[[${b.title}]]</a></td>
+		</tr>
+	</table>
+	<div>
+		<a href="/jpab/addForm"><button type="button">글 작성</button></a>
+	</div>
+</div>
+</body>
+</html>

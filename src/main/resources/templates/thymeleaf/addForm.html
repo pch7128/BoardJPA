@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>게시글 작성</title>
+<script 
+	src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous">
+</script>
+<script>
+	function addBoard(){
+		var board = $('#addForm').serialize();
+		$.ajax({
+			url:'/jpab/input',
+			type:'post',
+			cache:false,
+			data: board,
+			dataType:'json',
+			success:function(res){
+				alert(res.input ? '저장 성공':'실패');
+				location.href="/jpab/list";
+			},
+			error:function(xhr, status, err){
+				alert(err);
+			}
+		})
+	}
+</script>
+</head>
+<body>
+	<h3>게시글 작성</h3>
+	<form id="addForm" method="post">
+		<div><label>제목</label><input type="text" name="title"></div>
+		<div><label>작성자</label><input type="text" name="author"></div>
+		<div><label>내용</label><textarea name="contents"></textarea></div>
+		
+		<div>
+			<button type="button" onclick="addBoard()">저장</button>
+		</div>
+	</form>
+
+</body>
+</html>

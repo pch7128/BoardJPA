@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>게시글 상세보기</title>
+<script 
+	src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous">
+</script>
+<script>
+	function boardDelete(bnum){
+		var obj={};
+		obj.bnum=bnum;
+		
+		$.ajax({
+			url:'/jpab/deleted',
+			type:'post',
+			cache:false,
+			data: obj,
+			dataType:'json',
+			success:function(res){
+				alert(res.deleted ? '삭제 성공':'실패');
+				location.href="/jpab/list";
+			},
+			error:function(xhr, status, err){
+				alert(err);
+			}
+		})
+	}
+</script>
+</head>
+<body>
+	<table th:object="${b}">
+		<tr><th>no</th><td>[[*{bnum}]]</td></tr>
+		<tr><th>제목</th><td>[[*{title}]]</td></tr>
+		<tr><th>작성자</th><td>[[*{author}]]</td></tr>
+		<tr><th>작성일</th><td>[[*{rdate}]]</td></tr>
+		<tr><th>내용</th><td>[[*{contents}]]</td></tr>
+	</table>
+	<div>
+		<a th:href="@{'/jpab/editForm/'+${b.bnum}}"><button type="button">수정</button></a>
+		<button type="button" th:onclick="boardDelete([[${b.bnum}]])">삭제</button>
+	</div>
+
+</body>
+</html>
